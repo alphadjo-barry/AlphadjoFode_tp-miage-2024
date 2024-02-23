@@ -1,7 +1,6 @@
 # TP MIAGE conception logicielle
 #Etudiants : Alphadjo BARRY & Fodé Bangaly DIAKITE
 
-
 ## Nom du(des) étudiant(e)(s) de ce monôme/binôme 
 WARNING: NE PAS OUBLIER DE MENTIONNER LES DEUX NOMS SI VOUS ETES EN BINOME!
 
