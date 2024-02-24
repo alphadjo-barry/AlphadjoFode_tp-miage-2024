@@ -43,8 +43,6 @@ public class TodoItemPersistenceAdapter implements LoadTodoItem,UpdateTodoItem, 
 	public void addTodoItem(TodoItem item) {
 
 		 this.todoItemRepository.save(mapper.mapToTodoItemJpaEntity(item));
-	}
-
 	@Override
 	public void storeNewTodoItem(TodoItem item) {
 

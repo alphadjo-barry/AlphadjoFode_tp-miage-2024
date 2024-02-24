@@ -20,7 +20,6 @@ public class AddTodoItemService implements AddTodoItem {
  	//this.updateTodoItem = updateTodoItem;
  	this.addTodoItem= addTodoItem;
 	}
-
 	@Override
 	public void addTodoItem(TodoItem item) {
 		this.addTodoItem.add();
