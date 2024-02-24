@@ -38,7 +38,6 @@ public class TodoItemPersistenceAdapter implements LoadTodoItem, AddTodoItem {
 				.map(todoItemJpaEntory -> mapper.mapToTodoItem(todoItemJpaEntory)).collect(Collectors.toList());
 	}
 
-
 	@Override
 	public void addTodoItem(TodoItem item) {
 
