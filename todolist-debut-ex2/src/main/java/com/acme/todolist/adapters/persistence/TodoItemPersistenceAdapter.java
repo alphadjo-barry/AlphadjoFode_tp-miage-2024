@@ -19,7 +19,7 @@ import com.acme.todolist.domain.TodoItem;
  *
  */
 @Component
-public class TodoItemPersistenceAdapter implements LoadTodoItem,UpdateTodoItem, AddTodoItem {
+public class TodoItemPersistenceAdapter implements LoadTodoItem, AddTodoItem {
 
 	private TodoItemRepository todoItemRepository;
 
@@ -42,9 +42,6 @@ public class TodoItemPersistenceAdapter implements LoadTodoItem,UpdateTodoItem, 
 	@Override
 	public void addTodoItem(TodoItem item) {
 
-		 this.todoItemRepository.save(mapper.mapToTodoItemJpaEntity(item));
-	@Override
-	public void storeNewTodoItem(TodoItem item) {
-
+		this.todoItemRepository.save(mapper.mapToTodoItemJpaEntity(item));
 	}
 }
