@@ -15,13 +15,12 @@ public class AddTodoItemService implements AddTodoItem {
 	private AddTodoItem addTodoItem;
 
 	@Inject
-	//A compléter
 	public AddTodoItemService(UpdateTodoItem updateTodoItem, AddTodoItem addTodoItem) {
- 	//this.updateTodoItem = updateTodoItem;
- 	this.addTodoItem= addTodoItem;
+ 	this.updateTodoItem = updateTodoItem;
+ 	this.addTodoItem = addTodoItem;
 	}
 	@Override
 	public void addTodoItem(TodoItem item) {
-		this.addTodoItem.add();
+		this.addTodoItem.addTodoItem(item);
 	}
 }
