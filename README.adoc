@@ -1,7 +1,6 @@
 # TP MIAGE conception logicielle
-#Etudiants : Alphadjo BARRY & Fodé Bangaly DIAKITE
+##Etudiants : Alphadjo BARRY & Fodé Bangaly DIAKITE
 
-## Nom du(des) étudiant(e)(s) de ce monôme/binôme 
 WARNING: NE PAS OUBLIER DE MENTIONNER LES DEUX NOMS SI VOUS ETES EN BINOME!
 
 #XXX# (et #YYY#)
@@ -53,25 +52,41 @@ TIP: [Rappel Git] Trois dépôts sont ici utilisés : le dépot Github de l'ense
 * Observer le code du projet `todolist-debut-ex1`
 
 *Le code est-il structuré en couches ? Quel problèmes ce code peut-il poser ?*
- Réponse : Le code est bien structuré car nous avons trouvé : 
+Oui le code est structuré en couches car nous avons premièrement 2 dossiers permettant de séparer la vue applicative et les ressources.
+Ensuite dans le package principal ('main/java'),toutes les parties de l'application sont dans un fichier dédié.
         - Un repository pour intéragir avec la base de données
-        - Un controlleur
-        - Ressource pour acceder à la base de données
-        - Le code metier
+        - Un controlleur pour gérer les fonctionanlités de l'application
+        - Une classe d'entité qui représente l'objet et la DTO
+       
+Le problème qu'il peut poser est le mélange des deux fonctions d'entité et de DTO à la fois. Ces deux notions doivent être séparées.
+
 *Où se trouve le code métier (voir la règle de gestion RG 1) ?*
-        - Le code metier se trouve dans le fichier TodoListController.java
+  Le code metier se trouve dans le fichier TodoListController.java
+        
 *Cette règle est-elle facilement testable par un test unitaire ?*
-        - Oui facilement par un test unitaire car elle est contenu dans TodoListController qui est dans une méthode isolée.   
+Oui, la règle RG1 est facilement testable par un test unitaire, car elle est contenu dans une méthode isolée. Il faudra vérifier qu'un item ajouté il y'a plus de 24h contient la note "LATE"
+        
 * Lancer une base PostgreSQL en Docker dans un terminal (on lance ici la base en mode interactif pour visualiser son activité. Pour la lancer en tâche de fond, remplacer les options `it` par `d` comme 'daemon'):
 ```bash
 docker run -it -e POSTGRES_PASSWORD=password -p 5432:5432 postgres
 ```
 *Expliquer cette ligne de commande (y compris les options utilisées)*
+
+Cette ligne de commande est utilisée pour lancer un conteneur Docker basé sur l'image "postgres". Voici ce que signifient les différents éléments de cette commande :
+
+-docker run: C'est la commande principale pour lancer un conteneur Docker.
+-it: Cela indique à Docker de lancer le conteneur en mode interactif (interactive terminal), ce qui permettra d'interagir avec la console du conteneur.
+-e POSTGRES_PASSWORD=password: Cela définit la variable d'environnement POSTGRES_PASSWORD avec la valeur "password", ce qui spécifie le mot de passe pour l'utilisateur "postgres" dans la base de données PostgreSQL qui sera créée dans le conteneur.
+-p 5432:5432: Cela mappe le port 5432 du système hôte (là où Docker est exécuté) sur le port 5432 du conteneur, qui est le port par défaut utilisé par PostgreSQL pour les connexions clientes.
+-postgres: C'est le nom de l'image Docker à partir de laquelle le conteneur sera créé.
    
 * Compléter le code manquant dans la méthode `TodoListController.createTodoItem()`
- Pour completer le code nous avons ajouté : this.todoItemRepository.save(todoItem); 
-*Pourquoi `todoItemRepository` est-il `null` ? Quelle est la meilleure façon de l'injecter ?*
- Parce qu'il est pas bien injecté. Pour l'injecter il faut utiliser @inject juste avant le constructeur
+ Pour completer le code nous avons ajouté : this.todoItemRepository.save(todoItem).
+ 
+* Pourquoi `todoItemRepository` est-il `null` ? Quelle est la meilleure façon de l'injecter ?*
+ Parce qu’il manque l’injection de dépendance sur le constructeur de TodoListController.java.
+Pour l'injecter correctement, il faut ajouter l'annotation @Inject ou @Autowired sur le constructeur de todolistController.
+
 * Modifier le code en conséquence.
 
 * Tester vos endpoints avec un client REST.
@@ -112,6 +127,13 @@ Source : http://leanpub.com/get-your-hands-dirty-on-clean-architecture[Tom Hombe
   - la couche `domain` qui contient les entités (au sens DDD, pas au sens JPA). En général des classes complexes (méthodes riches, relations entre les entités)
 
 *Rappeler en quelques lignes les grands principes de l'architecture hexagonale.*
+
+L'architecture hexagonale est un type d'architecture permettant de reduire la dependance dans notre code en utilisant des ports et adapteurs. Ses principes sont les suivants :
+- Séparation des préoccupations : L'architecture hexagonale cherche à séparer les différentes préoccupations d'un système logiciel en utilisant une approche modulaire.
+- Ports et adaptateurs : L'architecture hexagonale met en œuvre le principe de "Ports et Adaptateurs", où les hexagones définissent des interfaces (ou "ports") pour communiquer avec le monde extérieur, tels que les entrées (input) et les sorties (output) du système
+- Indépendance de l'infrastructure : Les hexagones dans l'architecture hexagonale sont indépendants de l'infrastructure sous-jacente, telle que les frameworks, les bibliothèques ou les bases de données.
+- Testabilité : L'architecture hexagonale favorise la testabilité du code en isolant la logique métier dans les hexagones, ce qui permet de facilement créer des tests unitaires et d'intégration pour vérifier le comportement attendu du système.
+- Flexibilité : L'architecture hexagonale vise à être flexible en permettant de facilement remplacer ou modifier les composants du système, tels que les adaptateurs, sans impacter la logique métier encapsulée dans les hexagones.
 
 Compléter ce code avec une fonctionnalité de création de `TodoItem`  persisté en base et appelé depuis un endpoint REST `POST /todos` qui :
 
